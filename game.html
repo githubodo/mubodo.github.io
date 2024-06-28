@@ -1,0 +1,184 @@
+
+<!doctype html><html lang="en"><head><script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+				new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+			j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+			'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+		})(window,document,'script','dataLayerGPX','GTM-K7CPNRZ');</script><script>function gpxGetCookieKeys () {
+                if (!document.cookie) return [];
+                var _keys = document.cookie.replace(/((?:^|\s*;)[^\=]+)(?=;|$)|^\s*|\s*(?:\=[^;]*)?(?:\1|$)/g, '').split(/\s*(?:\=[^;]*)?;\s*/);
+                for (var _index = 0; _index < _keys.length; _index++) {
+                    _keys[_index] = decodeURIComponent(_keys[_index]);
+                }
+                return _keys;
+            }
+            function gpxGetCookie (cname) {
+                var name = cname + "=";
+                var decodedCookie = decodeURIComponent(document.cookie);
+                var ca = decodedCookie.split(';');
+                for (var i = 0; i < ca.length; i++) {
+                    var c = ca[i];
+                    while (c.charAt(0) === ' ') {
+                        c = c.substring(1);
+                    }
+                    if (c.indexOf(name) === 0) {
+                        return c.substring(name.length, c.length);
+                    }
+                }
+                return null;
+            }
+            function gpxSetCookie (name, value, expirationDays = 10000, path="/", domain = location.host) {
+                var expirationDate = new Date();
+                expirationDate.setTime(expirationDate.getTime() + (expirationDays*24*60*60*1000));
+                document.cookie = name+"="+value+";path="+path+"; expires="+expirationDate.toUTCString()+";SameSite=None;Secure;domain="+domain;
+            }
+            function gpxDeleteCookie (name, path="/", domain = location.host) { document.cookie = name+"=;path="+path+";expires=Thu, 01 Jan 1970 00:00:01 GMT;SameSite=None;Secure;domain="+domain};
+
+            function getParameterByName(name, url) {
+                if (!url) url = window.location.href;
+                name = name.replace(/[\[\]]/g, '\\$&');
+                var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+                    results = regex.exec(url);
+                if (!results) return null;
+                if (!results[2]) return '';
+                return decodeURIComponent(results[2].replace(/\+/g, ' '));
+            }
+            let getLang = function(){
+				let lang;
+				try {
+					lang = getParameterByName('lang') && getParameterByName('lang').split('-')[0];
+					if (!lang) {
+						lang = navigator.languages && navigator.languages.length
+							? navigator.languages[0].substring(0, 2)
+							: navigator.language.substring(0, 2);
+					}
+                } catch {
+					lang = 'en'
+                }
+				return lang || 'en'
+            }
+
+            var ref = (document.referrer && document.referrer.match(/:\/\/(.[^/]+)/)[1]) || 'direct';
+            // var namespace = location.pathname && location.pathname.split('/').length > 1 ? location.pathname.split('/')[1] : null;
+            // if(namespace) {
+            //     var link = !!document.querySelector("link[rel='canonical']") ? document.querySelector("link[rel='canonical']") : document.createElement('link');
+            //     link.setAttribute('rel', 'canonical');
+            //     link.setAttribute('href', 'https://www.gamepix.com/play/' + namespace + '/');
+            //     document.head.appendChild(link);
+            // }
+
+            //cookie policy enabler, disable cookie policy for some sid
+            let policyExcludedSid = ['110665', '110783']
+            if(policyExcludedSid.indexOf(getParameterByName('sid')) == -1){
+				let lang_id = getLang()
+					, policy_id;
+
+				switch (lang_id) {
+					case 'it':
+						policy_id = 78224144;
+						break;
+					case 'fr':
+						policy_id = 59659549;
+						break;
+					case 'de':
+						policy_id = 40043440;
+						break;
+					case 'es':
+						policy_id = 24193842;
+						break;
+					case 'pt':
+						policy_id = 39895310
+						lang_id = 'pt-BR';
+						break;
+					default:
+						lang_id = 'en';
+						policy_id = 64038034
+						break
+				}
+
+				var _iub = _iub || [];
+				_iub.csConfiguration = {
+					"storage":{
+						"type":"local_storage"
+					},
+					"consentOnContinuedBrowsing": false,
+					"ccpaAcknowledgeOnDisplay": true,
+					"googleAdditionalConsentMode":true,
+					"newConsentAtVendorListUpdate":0,
+					"askConsentAtCookiePolicyUpdate":true,
+					"whitelabel": false,
+					"lang": lang_id,
+					"siteId": 1944774,
+					"enableCcpa": true,
+					"enableTcf":true,
+					"countryDetection": true,
+					"enableRemoteConsent": true,
+					"enableCMP": true,
+					"tcfVersion": 2,
+					// "perPurposeContent":true,
+					// "preferenceCookie": {
+					//     "expireAfter": 1
+					// },
+					"cookiePolicyId": policy_id,
+					// "isTCFConsentGlobal": false,
+					"banner": {
+						"position": "float-bottom-center",
+						// "acceptButtonDisplay": true,
+						// "customizeButtonDisplay": true,
+						// "closeButtonDisplay": false
+						"acceptButtonDisplay": true,
+						"customizeButtonDisplay": true,
+						"closeButtonDisplay": false,
+						"applyStyles": false
+					}
+				};
+				window['gtag_enable_tcf_support'] = true;
+
+				// let patchedIubenda = gpxGetCookie('ptcIub');
+				// if(!patchedIubenda){
+				// 	let cookiesKeys = gpxGetCookieKeys();
+				// 	gpxDeleteCookie('ptc_iub', '/', 'gamepix.com');
+				// 	for(let c of cookiesKeys){
+				// 		if(c.indexOf("euconsent-v2") > -1 || c.indexOf("_iub") > -1){
+				// 			gpxDeleteCookie(c, '/', 'gamepix.com');
+				// 			gpxDeleteCookie(c, '/', 'play.gamepix.com');
+				// 		}
+				// 	}
+				// 	//set Iubenda patched cookie for 1 day
+				// 	gpxSetCookie("ptcIub","true", 7, '/', "gamepix.com");
+				// }
+                var iubendaTcfStubStubScript = document.querySelector("script[src='//cdn.iubenda.com/cs/tcf/stub-v2.js']") ? document.querySelector("script[src='//cdn.iubenda.com/cs/tcf/stub-v2.js']") : document.createElement('script');
+                iubendaTcfStubStubScript.setAttribute('src', '//cdn.iubenda.com/cs/tcf/stub-v2.js');
+                iubendaTcfStubStubScript.setAttribute('type', 'text/javascript');
+                document.head.appendChild(iubendaTcfStubStubScript);
+
+                var iubendaSafeTcfScript = document.querySelector("script[src='//cdn.iubenda.com/cs/tcf/safe-tcf-v2.js']") ? document.querySelector("script[src='//cdn.iubenda.com/cs/tcf/safe-tcf-v2.js']") : document.createElement('script');
+                iubendaSafeTcfScript.setAttribute('src', '//cdn.iubenda.com/cs/tcf/safe-tcf-v2.js');
+                iubendaSafeTcfScript.setAttribute('type', 'text/javascript');
+                document.head.appendChild(iubendaSafeTcfScript);
+
+                var iubendaCcpaStubScript = document.querySelector("script[src='//cdn.iubenda.com/cs/ccpa/stub.js']") ? document.querySelector("script[src='//cdn.iubenda.com/cs/ccpa/stub.js']") : document.createElement('script');
+                iubendaCcpaStubScript.setAttribute('src', '//cdn.iubenda.com/cs/ccpa/stub.js');
+                iubendaCcpaStubScript.setAttribute('type', 'text/javascript');
+                document.head.appendChild(iubendaCcpaStubScript);
+
+                var iubendaCsSript = document.querySelector("script[src='//cdn.iubenda.com/cs/iubenda_cs.js']") ? document.querySelector("script[src='//cdn.iubenda.com/cs/iubenda_cs.js']") : document.createElement('script');
+                iubendaCsSript.setAttribute('src', '//cdn.iubenda.com/cs/iubenda_cs.js');
+                iubendaCsSript.setAttribute('charset', 'UTF-8');
+                iubendaCsSript.setAttribute('type', 'text/javascript');
+                iubendaCsSript.setAttribute('async', 'async');
+                document.head.appendChild(iubendaCsSript);
+            }
+
+
+            var mainColor = "#0e385b";
+            if(getParameterByName('mainColor')){
+                mainColor = "#" + getParameterByName('mainColor');
+                if(mainColor == "#fff" || mainColor == "#ffffff"){
+                    mainColor = "#000000"
+                }
+            };
+
+                //append loader color and html page color
+            var colorStyle = document.createElement("style");
+            colorStyle.innerHTML = ".gpx-loader { color:"+mainColor+" !important; }";
+            document.getElementsByTagName("head")[0].appendChild(colorStyle);</script>
